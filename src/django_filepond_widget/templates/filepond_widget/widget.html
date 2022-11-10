@@ -1,0 +1,53 @@
+{% load static %}
+<style>
+    .filepond--panel-root {
+        background-color: var(--darkened-bg);
+    }
+
+    .filepond--credits {
+        display: none;
+    }
+    .filepond {
+        min-width: 200px;
+        min-height: 76px;
+    }
+</style>
+
+<input type="file" class="filepond">
+
+<!-- Load FilePond library -->
+<script type="text/javascript" src="{% static "filepond_widget/js/filepond.min.js" %}"></script>
+<script type="text/javascript" src="{% static "filepond_widget/js/js.cookie.min.js" %}"></script>
+<link rel="stylesheet" href="{% static "filepond_widget/css/filepond.min.css" %}">
+
+<!-- Turn all file input elements into ponds -->
+<script>
+    FilePond.parse(document.body);
+    FilePond.setOptions({
+        name: '{{ widget.name }}',
+        chunkUploads: true,
+        chunkSize: 500000,
+        dropOnPage: true,
+        allowMultiple: false,
+        allowPaste: true,
+        allowBrowse: true,
+        allowDrop: true,
+        server: {
+            headers: { 'X-CSRFToken': Cookies.get('csrftoken') },
+            url: '/fp',
+            process: {
+                url: '/process/',
+                method: 'POST',
+                ondata: (formData) => {
+                    formData.append('fp_upload_field', "{{ widget.name }}");
+                    return formData;
+                },
+            },
+            patch: '/patch/',
+            revert: '/revert/',
+            fetch: '/fetch/?target=',
+            load: '/load/'
+        },
+        ...JSON.parse('{{ filepond_options|safe }}')
+    });
+</script>

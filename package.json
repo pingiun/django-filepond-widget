@@ -1,0 +1,9 @@
+{
+  "name": "django_filepond_widget",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "filepond": "^4.30.4",
+    "js-cookie": "^3.0.1"
+  }
+}
