@@ -7,7 +7,7 @@ from django_drf_filepond.models import TemporaryUpload
 
 class FilePondWidget(forms.FileInput):
     needs_multipart_form = True
-    template_name = "filepond_widget/widget.html"
+    template_name = "django_filepond_widget/widget.html"
 
     def __init__(self, attrs=None):
         super().__init__(attrs)
