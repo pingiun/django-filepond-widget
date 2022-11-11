@@ -1,9 +1,18 @@
 import json
 from django import forms
 from django.core.files.base import File
+from django.core.files.uploadedfile import UploadedFile
 
 from django_drf_filepond.models import TemporaryUpload
 
+class FilepondFile(UploadedFile):
+    def __init__(self, temporary_upload: TemporaryUpload, *args, **kwargs):
+        self.temporary_upload = temporary_upload
+        super().__init__(file=temporary_upload.file, name=temporary_upload.upload_name, *args, **kwargs)
+
+    def remove(self):
+        # Deleting this model instance also deletes the files via a signal
+        self.temporary_upload.delete()
 
 class FilePondWidget(forms.FileInput):
     needs_multipart_form = True
@@ -47,5 +56,5 @@ class FilePondField(forms.FileField):
     def to_python(self, data):
         if isinstance(data, str):
             temp_upload = TemporaryUpload.objects.get(upload_id=data)
-            return File(temp_upload.file, name=temp_upload.upload_name)
+            return FilepondFile(temp_upload)
         return super().to_python(data)
