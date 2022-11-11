@@ -5,7 +5,7 @@ from django.core.files.uploadedfile import UploadedFile
 
 from django_drf_filepond.models import TemporaryUpload
 
-class FilepondFile(UploadedFile):
+class FilePondFile(UploadedFile):
     def __init__(self, temporary_upload: TemporaryUpload, *args, **kwargs):
         self.temporary_upload = temporary_upload
         super().__init__(file=temporary_upload.file, name=temporary_upload.upload_name, *args, **kwargs)
@@ -56,5 +56,5 @@ class FilePondField(forms.FileField):
     def to_python(self, data):
         if isinstance(data, str):
             temp_upload = TemporaryUpload.objects.get(upload_id=data)
-            return FilepondFile(temp_upload)
+            return FilePondFile(temp_upload)
         return super().to_python(data)
