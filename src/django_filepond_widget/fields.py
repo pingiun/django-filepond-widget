@@ -54,7 +54,7 @@ class FilePondField(forms.FileField):
         self.widget.filepond_options = filepond_options or {}
 
     def to_python(self, data):
-        if isinstance(data, str):
+        if isinstance(data, str) and data != "":
             temp_upload = TemporaryUpload.objects.get(upload_id=data)
             return FilePondFile(temp_upload)
         return super().to_python(data)
