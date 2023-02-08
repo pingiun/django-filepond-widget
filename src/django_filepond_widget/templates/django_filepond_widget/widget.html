@@ -22,6 +22,15 @@
 
 <!-- Turn all file input elements into ponds -->
 <script>
+    function disableSaving(disable){
+        for (const child of document.querySelectorAll('input[type="submit"]')) {
+            if (disable) {
+                child.setAttribute("disabled", "true");
+            } else {
+                child.removeAttribute("disabled");
+            }
+        }
+    }
     FilePond.parse(document.body);
     FilePond.setOptions({
         name: '{{ widget.name }}',
@@ -47,6 +56,12 @@
             revert: '/revert/',
             fetch: '/fetch/?target=',
             load: '/load/'
+        },
+        oninitfile: () => {
+            disableSaving(true);
+        },
+        onprocessfiles: () => {
+            disableSaving(false);
         },
         ...JSON.parse('{{ filepond_options|safe }}')
     });
