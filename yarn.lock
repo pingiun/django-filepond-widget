@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-filepond@^4.30.4:
-  version "4.30.4"
-  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.30.4.tgz#036d87d9b0ab27d19fb5e302eae799df90e094e4"
-  integrity sha512-FCwsMvG9iiEs6uobdDrTaKsCgsqys0NuLgPPD8n37AYVYBiiDkrPkk9MSIU5rT2FahYcL1bScYI9huIPtlzqyA==
+filepond@^4.30.6:
+  version "4.30.6"
+  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.30.6.tgz#59ef22196f810be169c77f3f1fc1439931844a3a"
+  integrity sha512-gBsVKJgr5HFTkQSA/3R6utne4Qt6Pue0O3+k3IjjVBbaQxMgGMI0fXwoob9SdRRoULCs8BAhWjttM28hOAi/0w==
 
 js-cookie@^3.0.5:
   version "3.0.5"
